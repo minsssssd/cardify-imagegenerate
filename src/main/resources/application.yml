@@ -1,0 +1,14 @@
+webui:
+  url: http://127.0.0.1:42032
+
+  server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+s3:
+  bucket:
+    url: https://my-cardify-images-mintx0526.s3.ap-southeast-2.amazonaws.com
+    
