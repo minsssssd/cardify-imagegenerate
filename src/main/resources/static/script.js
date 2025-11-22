@@ -59,12 +59,19 @@ document.addEventListener('DOMContentLoaded', () => {
         loadingMsg.style.display = 'block';
 
         try {
-            // 1. 백엔드에 배경 이미지 요청 (S3 URL 받아오기)
+            // 1. 백엔드에 모든 정보 전송 (사용자 정보 포함!)
             const requestBody = {
                 subject: userChoices.subject,
                 artStyle: userChoices.artStyle,
                 colorTone: userChoices.colorTone,
-                complexity: userChoices.complexity
+                complexity: userChoices.complexity,
+                textStyle: userChoices.textStyle,
+                
+                // 사용자 정보 추가 전송
+                name: currentUser.name,
+                title: currentUser.phone, // DTO 필드명에 맞춰서 매핑 (title 필드에 phone 정보를 넣는 식)
+                email: currentUser.email,
+                sns: currentUser.sns
             };
 
             // AWS 서버 주소 (본인의 IP 확인 필요)
@@ -79,9 +86,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             loadingMsg.style.display = 'none'; // 로딩 숨기기
 
-            // 2. 받아온 3개의 배경 이미지 각각에 대해 텍스트 합성 수행
-            data.images.forEach(imageUrl => {
-                createCardCanvas(imageUrl, userChoices.textStyle);
+            // 2. 받은 이미지를 바로 보여주기 (캔버스 합성 로직 삭제)
+            data.images.forEach(base64Image => {
+                const img = document.createElement('img');
+                img.src = base64Image; // 서버가 이미 완성된 Base64를 줌
+                img.style.width = '100%';
+                // ... (클릭 및 다운로드 로직) ...
+                document.getElementById('final-gallery').appendChild(img);
             });
 
         } catch (error) {
