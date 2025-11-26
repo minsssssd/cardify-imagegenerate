@@ -13,8 +13,9 @@ public class BackgroundRequestDto {
     // 텍스트 합성 및 사용자 정보 필드 
     private String textStyle; // (예: "modern-classic")
     
-    private String name;      // 
-    private String title;     // (예: "CEO") - 기존 phone 자리에 들어갈 정보 등 자유롭게 활용
-    private String email;
-    private String sns;
+    private String name;      // 이름
+    private String email;     // 이메일
+    private String phone;     // 전화번호 (New)
+    private String company;   // 회사명 (New)
+    private String position;  // 직책 (New)
 }

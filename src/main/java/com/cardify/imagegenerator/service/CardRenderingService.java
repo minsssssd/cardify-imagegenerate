@@ -47,20 +47,28 @@ public class CardRenderingService {
             }
 
             // 5. 텍스트 그리기
-            // 이름
-            g.setFont(customFont.deriveFont(Font.BOLD, 52f)); // 폰트 크기 52
-            g.setColor(Color.WHITE); // 기본 흰색 (가독성 알고리즘은 복잡해서 일단 흰색/그림자로 통일 추천)
+            // 이름 그리기 (가장 크게)
+            g.setFont(customFont.deriveFont(Font.BOLD, 52f));
+            g.setColor(Color.WHITE);
             drawAlignedString(g, info.getName(), x, 100, align);
 
-            // 상세 정보
-            g.setFont(customFont.deriveFont(Font.PLAIN, 24f)); // 폰트 크기 24
-            int y = 160;
-            String[] infos = {info.getTitle(), info.getEmail(), info.getSns()}; // phone 대신 title 등 유동적 사용
+            // 상세 정보 그리기 (직책, 회사, 전화, 이메일 순서)
+            g.setFont(customFont.deriveFont(Font.PLAIN, 24f)); // 폰트 크기
+            int y = 160; // 시작 Y 좌표
+
+            // 화면에 표시할 순서대로 배열에 넣으세요
+            String[] infos = {
+                info.getPosition(), // 1. 직책 (예: CEO)
+                info.getCompany(),  // 2. 회사 (예: Cardify)
+                info.getPhone(),    // 3. 전화번호
+                info.getEmail()     // 4. 이메일
+            };
             
             for (String text : infos) {
+                // 값이 있는 경우에만 그림
                 if (text != null && !text.isEmpty()) {
                     drawAlignedString(g, text, x, y, align);
-                    y += 40;
+                    y += 40; // 줄 간격 40px
                 }
             }
 
